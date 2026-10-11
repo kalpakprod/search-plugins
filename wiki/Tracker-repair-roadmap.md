@@ -7,6 +7,8 @@
 
 The repository has 65 standalone plugin files and 147 audited source records. The audit separates public, snapshot, service, private, archive, and unresolved sources. A zero-row search is not treated as proof that a tracker is closed.
 
+Correction: `rutracker_public.py` is a working project-developed public adapter. It uses Lampac/JacRed-indexed public data with a private browser fallback and has been live-qualified with real magnet rows; it is not an unresolved or merely hypothetical source. Its direct account plugin remains a separate compatibility artifact.
+
 Already qualified public sources should receive maintenance only, not speculative rewrites. They include the current public/index adapters and direct repairs recorded in `Plugin-verification.json` (for example 1337x, Nyaa, RuTracker public, NNM/Toloka/Kinozal public-index variants, ThePirateBay, TorrentDownload, TorrentGalaxy `.one`, YourBittorrent, and the 2026 repair batch).
 
 ## Priority queue
