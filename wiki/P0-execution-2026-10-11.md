@@ -51,3 +51,10 @@ Record <source> live verification
 ```
 
 No secrets, cookies, payloads, session exports, or browser caches belong in the PR.
+
+
+## Compatibility endpoint recheck
+
+On 2026-10-11 the Lampac public endpoint from `ModInit.cs` returned HTTP 200 JSON for query `Дюна` in 5.37 seconds. It contained 239 rows, including 60 rows tagged `kinozal`, 17 tagged `toloka`, and 67 tagged `nnmclub`; each sampled row had a real `magnet:?xt=urn:btih:` value and numeric size/seed/peer fields. This revalidates the existing three public adapters; it is not a direct authenticated tracker search.
+
+The compatibility branch therefore has no new production adapter to add: the three adapters already exist and their shared parser contract is covered by `test_three_anonymous_searches_filter_exact_tracker_validate_hash_and_keep_metadata`. The remaining work is maintenance/endpoint rotation when the public index operator changes the endpoint.
