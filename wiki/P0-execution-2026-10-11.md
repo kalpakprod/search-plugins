@@ -58,3 +58,16 @@ No secrets, cookies, payloads, session exports, or browser caches belong in the 
 On 2026-10-11 the Lampac public endpoint from `ModInit.cs` returned HTTP 200 JSON for query `Дюна` in 5.37 seconds. It contained 239 rows, including 60 rows tagged `kinozal`, 17 tagged `toloka`, and 67 tagged `nnmclub`; each sampled row had a real `magnet:?xt=urn:btih:` value and numeric size/seed/peer fields. This revalidates the existing three public adapters; it is not a direct authenticated tracker search.
 
 The compatibility branch therefore has no new production adapter to add: the three adapters already exist and their shared parser contract is covered by `test_three_anonymous_searches_filter_exact_tracker_validate_hash_and_keep_metadata`. The remaining work is maintenance/endpoint rotation when the public index operator changes the endpoint.
+
+
+## Adapter-level live verification
+
+The three existing Lampac public adapters were run through the real plugin entry point, one at a time under the verification lock, with query `Дюна`:
+
+- `kinozal_public.py`: 60 rows, 60 valid BTIH magnets.
+- `toloka_public.py`: 17 rows, 17 valid BTIH magnets.
+- `nnmclub_public.py`: 67 rows, 67 valid BTIH magnets.
+
+This confirms the adapters are not report-only stubs. They filter exact `Tracker` membership and reject invalid hashes before printing rows.
+
+BitSearch's explicit HTTP route only returned a `301` to HTTPS; the HTTPS request then timed out without a body. This is an origin/transport limitation, not evidence that the old HTML parser is correct for a future endpoint.
