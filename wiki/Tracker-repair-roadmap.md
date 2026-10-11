@@ -5,6 +5,9 @@
 
 ## Current inventory
 
+The earlier wording that treated RuTracker public as unresolved was wrong. `rutracker_public.py` is already a project-developed working adapter and remains outside this P0 queue. The direct account adapter is a separate compatibility lane.
+
+
 The repository has 65 standalone plugin files and 147 audited source records. The audit separates public, snapshot, service, private, archive, and unresolved sources. A zero-row search is not treated as proof that a tracker is closed.
 
 Correction: `rutracker_public.py` is a working project-developed public adapter. It uses Lampac/JacRed-indexed public data with a private browser fallback and has been live-qualified with real magnet rows; it is not an unresolved or merely hypothetical source. Its direct account plugin remains a separate compatibility artifact.
@@ -85,6 +88,10 @@ git status --short
 ```
 
 The PR description must state: source URL, original implementation and license, changed route, query/category used, result count, magnet/infohash or metadata evidence, test command, browser/runtime requirements, and known limits. Do not include secrets, cookies, payload files, or session exports.
+
+## Lampac/JacRed porting lane
+
+Lampac/JacRed is a valid source for adapter contracts, not a reason to bypass tracker access controls. The next compatibility investigation should extract public-index behavior: endpoint, request parameters, JSON fields (`Tracker`, `Title`, `Size`, `MagnetUri`, `Seeders`, `Peers`, `PublishDate`), exact tracker membership filtering, and hash validation. Port only public response parsing into a standalone Python plugin. Do not port server-side crawler credentials, cookies, account sessions, CAPTCHA solving, or private tracker access. RuTracker already demonstrates this pattern; apply it to Kinozal/Toloka/NNM only when the public index is reachable and its rows are genuinely attributable.
 
 ## Stop conditions
 
